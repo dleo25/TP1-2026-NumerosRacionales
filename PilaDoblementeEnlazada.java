@@ -15,14 +15,22 @@ public class PilaDoblementeEnlazada<T> implements Pila<T> {
 
     @Override
     public T tope() throws IllegalStateException {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'tope'");
+        if(esVacia()) throw new IllegalStateException("Pila vacia");
+        else return fin.getItem();
+
     }
 
     @Override
     public void apilar(T elem) throws IllegalStateException {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'apilar'");
+        if(esVacia()){
+            NodoPila<T> nuevo = new NodoPila<>(null, elem, null);
+            this.inicio = nuevo;
+            this.fin = nuevo;
+        } else {
+            NodoPila<T> nuevo = new NodoPila<>(this.fin, elem, null);
+            this.fin.setNext(nuevo);
+            this.fin = nuevo;
+        }
     }
 
     @Override
