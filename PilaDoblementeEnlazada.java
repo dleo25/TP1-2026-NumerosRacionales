@@ -53,8 +53,11 @@ public class PilaDoblementeEnlazada<T> implements Pila<T> {
 
     @Override
     public void imprimir() {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'imprimir'");
+        NodoPila<T> actual = this.fin;
+        while (actual != null){
+            System.out.println(actual.getItem());
+            actual = actual.getPrev();
+        }
     }
 
 }
