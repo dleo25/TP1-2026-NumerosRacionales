@@ -35,8 +35,20 @@ public class PilaDoblementeEnlazada<T> implements Pila<T> {
 
     @Override
     public T desapilar() throws IllegalStateException {
-        // TODO Implementar este método y eliminar la línea siguiente
-        throw new UnsupportedOperationException("Unimplemented method 'desapilar'");
+        if(esVacia()) throw new IllegalStateException("Pila vacia");
+        else{
+            T dato = this.fin.getItem();
+
+                if(this.inicio == this.fin){
+                    this.inicio = null;
+                    this.fin = null;
+                }
+                else {
+                    this.fin = this.fin.getPrev();
+                    this.fin.setNext(null);
+                }
+            return dato;
+        }
     }
 
     @Override
