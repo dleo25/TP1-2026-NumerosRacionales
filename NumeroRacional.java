@@ -28,7 +28,17 @@ public class NumeroRacional implements Racional{
 
     @Override
     public void suma(Racional r){
-        return;   
+        NumeroRacional otro = (NumeroRacional) r;
+        int nuevoNumerador = (this.numerador * otro.getDenominador()) + (this.denominador * otro.getNumerador());
+        int nuevoDenominador = this.denominador * otro.getDenominador();
+        
+        if(nuevoNumerador % nuevoDenominador == 0){
+            nuevoNumerador = nuevoNumerador / nuevoDenominador;
+            nuevoDenominador = nuevoDenominador / nuevoDenominador;
+        }
+
+        this.numerador = nuevoNumerador;
+        this.denominador = nuevoDenominador;
     }
 
     @Override
@@ -40,7 +50,15 @@ public class NumeroRacional implements Racional{
 
     @Override
     public void div(Racional r){
-        return;
+        NumeroRacional otro = (NumeroRacional) r;
+        
+        if(otro.getNumerador() == 0) throw new IllegalArgumentException("No se puede dividir por cero");
+
+        int nuevoDenominador = this.denominador * otro.getNumerador();
+        int nuevoNumerador = this.numerador * otro.getDenominador();
+
+        this.denominador = nuevoDenominador;
+        this.numerador = nuevoNumerador;
     }
 
     public int getNumerador(){
