@@ -40,13 +40,15 @@ public class NumeroRacional implements Racional{
         int nuevoNumerador = (this.numerador * otro.getDenominador()) + (this.denominador * otro.getNumerador());
         int nuevoDenominador = this.denominador * otro.getDenominador();
         
-        if(nuevoNumerador % nuevoDenominador == 0){
-            nuevoNumerador = nuevoNumerador / nuevoDenominador;
-            nuevoDenominador = nuevoDenominador / nuevoDenominador;
-        }
+        //if(nuevoNumerador % nuevoDenominador == 0){
+        //    nuevoNumerador = nuevoNumerador / nuevoDenominador;
+        //    nuevoDenominador = nuevoDenominador / nuevoDenominador;
+        // }
 
         this.numerador = nuevoNumerador;
         this.denominador = nuevoDenominador;
+
+        simplificar();
     }
 
     //para multiplicar fracciones lo hacemos "Derecho"
@@ -72,7 +74,38 @@ public class NumeroRacional implements Racional{
         this.denominador = nuevoDenominador;
         this.numerador = nuevoNumerador;
     }
+    
+     //Calcula el Máximo Común Divisor (MCD) usando el Algoritmo de Euclides.
+     //Utiliza Math.abs() para trabajar con valores absolutos y omitir signos negativos en el cálculo.
+    private int mcd(int a, int b) {
+        a = Math.abs(a);
+        b = Math.abs(b);
+        while (b != 0) {
+            int temporal = b;
+            b = a % b;
+            a = temporal;
+        }
+        return a;
+    }
+    
+     //Reduce la fracción a su forma irreductible dividiendo el numerador y 
+     //denominador por su MCD. Además, asegura que si la fracción es negativa,
+     //el signo '-' quede asignado únicamente al numerador.
+    public void simplificar(){
+       if (this.numerador == 0) {
+            this.denominador = 1;
+            return;
+        }
+        
+        int divisor = mcd(this.numerador, this.denominador);
+        this.numerador /= divisor;
+        this.denominador /= divisor;
 
+        if (this.denominador < 0) {
+            this.numerador = -this.numerador;
+            this.denominador = -this.denominador;
+        }
+    }
 
     //Setters 
 
