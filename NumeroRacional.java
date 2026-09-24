@@ -34,13 +34,15 @@ public class NumeroRacional implements Racional{
         simplificar();
     }
 
+    //casteamos r porque para usar metodos como "getNumerador()" necesitamos que sea de tipo NumeroRacional
     //la suma de fracciones requiere mismo denominador, entonces multiplicamos entre si para obtener la formula
-    // a/b + c/d = a*d + b*c / a * d
+    // a/b + c/d = a*d + b*c / b * d
     //el if sirve para simplificar, aunque pienso hacer un metodo privado
     //Al final actualiza el numerador y denominador
     @Override
     public void suma(Racional r){
         NumeroRacional otro = (NumeroRacional) r;
+
         int nuevoNumerador = (this.numerador * otro.getDenominador()) + (this.denominador * otro.getNumerador());
         int nuevoDenominador = this.denominador * otro.getDenominador();
         
