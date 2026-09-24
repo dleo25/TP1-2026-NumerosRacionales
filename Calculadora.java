@@ -49,7 +49,13 @@ public class Calculadora {
                     pila.apilar(r);
                     numeroActual = ""; //reiniciamos para el proximo numero
                 }
-            } 
+            }
+            //si es un '-' pegado a un numero (ej: -2R3 o 1R-3) no es una resta, es el signo negativo,
+            //asi que lo agregamos al numero que estamos armando. Nos damos cuenta porque numeroActual
+            //ya tiene algo guardado: el '-' de la resta siempre tiene un espacio a su derecha
+            else if (c == '-' && numeroActual.length() > 0) {
+                numeroActual = c + numeroActual;
+            }
             //si es un operador
             else if (c == '+' || c == '-' || c == '*' || c == '/') {
                 NumeroRacional op1 = pila.desapilar();

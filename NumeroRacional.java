@@ -11,6 +11,9 @@ public class NumeroRacional implements Racional{
         this.numerador = numerador;
         this.denominador = denominador;
         if (!repOk()) throw new IllegalArgumentException("El denominador no puede ser 0");
+
+        //simplificamos desde el principio, asi 2R4 queda 1/2 y 1R-3 queda -1/3 (el signo va en el numerador)
+        simplificar();
     }
 
     //El repok() verifica que el denominador no sea 0
