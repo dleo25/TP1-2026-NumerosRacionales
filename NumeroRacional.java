@@ -98,6 +98,7 @@ public class NumeroRacional implements Racional{
         //prueba dividir por 2, cada vez que un numero
         //divide justo a los dos (sin resto), dividimos y probamos ese mismo numero
         //de nuevo. Si no divide, pasamos al siguiente. Repetimos hasta que no entre mas.
+        //podría hacerse buscando el divisor mas grande para hacer una sola division
         int divisor = 2;
             while(divisor <= a && divisor <= b){
                 if(a % divisor == 0 && b % divisor == 0){

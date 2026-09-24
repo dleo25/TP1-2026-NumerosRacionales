@@ -1,21 +1,30 @@
 public class Calculadora {
 
+
+    //recibe un texto tipo "1R2", busca la R para separar el numerador del denominador
+    //corta el String en dos partes, convierte cada una a entero y devuelve el NumeroRacional
     private static NumeroRacional convertirARacional(String texto) {
         
+        // arrancamos en -1 como bandera por si no encuentra la R
         int posicionDeR = -1;
         // Buscamos la posición de la R
         for (int i = 0; i < texto.length(); i++) {
             if (texto.charAt(i) == 'R') {
-                posicionDeR = i;
-                break;
+                posicionDeR = i; // guardamos el indice de la R
+                break; // cortamos el bucle porque con encontrar la primera ya alcanza
             }
         }
+        //cortamos la cadena en dos partes usando la posicion de la R como referencia
+        // ubstring(0, posicionDeR) agarra desde el inicio hasta antes de la R (numerador)
         String numStr = texto.substring(0, posicionDeR);
+        //substring(posicionDeR + 1) agarra desde lo que esta despues de la R hasta el final (denominador)
         String denStr = texto.substring(posicionDeR + 1);
 
+        //pasamos los textos ya separados a numeros enteros con Integer.parseInt
         int num = Integer.parseInt(numStr);
         int den = Integer.parseInt(denStr);
 
+        //creamos y devolvemos la instancia de NumeroRacional con los dos enteros
         return new NumeroRacional(num, den);
     }
 
@@ -49,6 +58,7 @@ public class Calculadora {
                 if (c == '+') {
                     op1.suma(op2);
                 } else if (c == '-') {
+                    // para restar: A - B es lo mismo que A + (-B)
                     op2.neg();
                     op1.suma(op2);
                 } else if (c == '*') {
