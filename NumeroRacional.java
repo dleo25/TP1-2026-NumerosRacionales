@@ -1,3 +1,5 @@
+import java.time.format.SignStyle;
+
 public class NumeroRacional implements Racional{
 
     
@@ -28,6 +30,8 @@ public class NumeroRacional implements Racional{
     @Override
     public void neg(){
         this.numerador = this.numerador * -1;
+
+        simplificar();
     }
 
     //la suma de fracciones requiere mismo denominador, entonces multiplicamos entre si para obtener la formula
@@ -40,11 +44,6 @@ public class NumeroRacional implements Racional{
         int nuevoNumerador = (this.numerador * otro.getDenominador()) + (this.denominador * otro.getNumerador());
         int nuevoDenominador = this.denominador * otro.getDenominador();
         
-        //if(nuevoNumerador % nuevoDenominador == 0){
-        //    nuevoNumerador = nuevoNumerador / nuevoDenominador;
-        //    nuevoDenominador = nuevoDenominador / nuevoDenominador;
-        // }
-
         this.numerador = nuevoNumerador;
         this.denominador = nuevoDenominador;
 
@@ -57,6 +56,8 @@ public class NumeroRacional implements Racional{
         NumeroRacional otro = (NumeroRacional) r;
         this.numerador = this.numerador * otro.getNumerador();
         this.denominador = this.denominador * otro.getDenominador();
+
+        simplificar();
     }
 
     //para dividir primero chequeamos que r sea valido
@@ -73,39 +74,46 @@ public class NumeroRacional implements Racional{
 
         this.denominador = nuevoDenominador;
         this.numerador = nuevoNumerador;
-    }
-    
-     //Calcula el Máximo Común Divisor (MCD) usando el Algoritmo de Euclides.
-     //Utiliza Math.abs() para trabajar con valores absolutos y omitir signos negativos en el cálculo.
-    private int mcd(int a, int b) {
-        a = Math.abs(a);
-        b = Math.abs(b);
-        while (b != 0) {
-            int temporal = b;
-            b = a % b;
-            a = temporal;
-        }
-        return a;
-    }
-    
-     //Reduce la fracción a su forma irreductible dividiendo el numerador y 
-     //denominador por su MCD. Además, asegura que si la fracción es negativa,
-     //el signo '-' quede asignado únicamente al numerador.
-    public void simplificar(){
-       if (this.numerador == 0) {
-            this.denominador = 1;
-            return;
-        }
         
-        int divisor = mcd(this.numerador, this.denominador);
-        this.numerador /= divisor;
-        this.denominador /= divisor;
+        simplificar();
+    }
+    
+    private void simplificar(){
+    if(this.numerador == 0){
+        //el 0 lo dejamos siempre como 0/1
+        this.denominador = 1;
+        return;
+    }
 
-        if (this.denominador < 0) {
-            this.numerador = -this.numerador;
-            this.denominador = -this.denominador;
+    //revisa los signos del numerador, denominador y los compara, si son distintos retorna true sino retorna false
+    boolean esNegativo = (this.numerador < 0) != (this.denominador < 0);
+
+    //math.abs toma el valor absoluto de un numero para que se pueda calcular el mcd
+    //esto modifica el signo del numerador y denominador(luego se devuelve ese signo)
+    int a = Math.abs(this.numerador);
+    int b = Math.abs(this.denominador);
+
+    //prueba dividir por 2, cada vez que un numero
+    //divide justo a los dos (sin resto), dividimos y probamos ese mismo numero
+    //de nuevo. Si no divide, pasamos al siguiente. Repetimos hasta que no entre mas.
+    int divisor = 2;
+    while(divisor <= a && divisor <= b){
+        if(a % divisor == 0 && b % divisor == 0){
+            a = a / divisor;
+            b = b / divisor;
+        } else {
+            divisor = divisor + 1;
         }
     }
+
+    //devuelve el signo que tenia al inicio la fraccion
+    if(esNegativo){
+        this.numerador = -a;
+    } else {
+        this.numerador = a;
+    }
+    this.denominador = b;
+ }
 
     //Setters 
 
