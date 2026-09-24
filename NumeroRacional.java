@@ -79,44 +79,43 @@ public class NumeroRacional implements Racional{
     }
     
     private void simplificar(){
-    if(this.numerador == 0){
-        //el 0 lo dejamos siempre como 0/1
-        this.denominador = 1;
-        return;
-    }
-
-    //revisa los signos del numerador, denominador y los compara, si son distintos retorna true sino retorna false
-    boolean esNegativo = (this.numerador < 0) != (this.denominador < 0);
-
-    //math.abs toma el valor absoluto de un numero para que se pueda calcular el mcd
-    //esto modifica el signo del numerador y denominador(luego se devuelve ese signo)
-    int a = Math.abs(this.numerador);
-    int b = Math.abs(this.denominador);
-
-    //prueba dividir por 2, cada vez que un numero
-    //divide justo a los dos (sin resto), dividimos y probamos ese mismo numero
-    //de nuevo. Si no divide, pasamos al siguiente. Repetimos hasta que no entre mas.
-    int divisor = 2;
-    while(divisor <= a && divisor <= b){
-        if(a % divisor == 0 && b % divisor == 0){
-            a = a / divisor;
-            b = b / divisor;
-        } else {
-            divisor = divisor + 1;
+        if(this.numerador == 0){
+            //el 0 lo dejamos siempre como 0/1
+            this.denominador = 1;
+            return;
         }
-    }
 
-    //devuelve el signo que tenia al inicio la fraccion
-    if(esNegativo){
-        this.numerador = -a;
-    } else {
-        this.numerador = a;
+        //revisa los signos del numerador, denominador y los compara, si son distintos retorna true sino retorna false
+        boolean esNegativo = (this.numerador < 0) != (this.denominador < 0);
+
+        //math.abs toma el valor absoluto de un numero para que se pueda calcular el mcd
+        //esto modifica el signo del numerador y denominador(luego se devuelve ese signo)
+        int a = Math.abs(this.numerador);
+        int b = Math.abs(this.denominador);
+
+        //prueba dividir por 2, cada vez que un numero
+        //divide justo a los dos (sin resto), dividimos y probamos ese mismo numero
+        //de nuevo. Si no divide, pasamos al siguiente. Repetimos hasta que no entre mas.
+        int divisor = 2;
+            while(divisor <= a && divisor <= b){
+                if(a % divisor == 0 && b % divisor == 0){
+                a = a / divisor;
+                b = b / divisor;
+                } else {
+                    divisor = divisor + 1;
+                }
+            }
+
+        //devuelve el signo que tenia al inicio la fraccion
+        if(esNegativo){
+            this.numerador = -a;
+        } else {
+            this.numerador = a;
+        }
+        this.denominador = b;
     }
-    this.denominador = b;
- }
 
     //Setters 
-
     
     public int getNumerador(){
         return numerador;
