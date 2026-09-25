@@ -15,7 +15,7 @@ public class Calculadora {
             }
         }
         //cortamos la cadena en dos partes usando la posicion de la R como referencia
-        // ubstring(0, posicionDeR) agarra desde el inicio hasta antes de la R (numerador)
+        //substring(0, posicionDeR) agarra desde el inicio hasta antes de la R (numerador)
         String numStr = texto.substring(0, posicionDeR);
         //substring(posicionDeR + 1) agarra desde lo que esta despues de la R hasta el final (denominador)
         String denStr = texto.substring(posicionDeR + 1);
@@ -50,9 +50,8 @@ public class Calculadora {
                     numeroActual = ""; //reiniciamos para el proximo numero
                 }
             }
-            //si es un '-' pegado a un numero (ej: -2R3 o 1R-3) no es una resta, es el signo negativo,
-            //asi que lo agregamos al numero que estamos armando. Nos damos cuenta porque numeroActual
-            //ya tiene algo guardado: el '-' de la resta siempre tiene un espacio a su derecha
+            //si el '-' esta pegado a un numero (ej: -2R3) es el signo, no una resta
+            //lo sabemos porque numeroActual ya tiene algo, el '-' de restar tiene un espacio al lado
             else if (c == '-' && numeroActual.length() > 0) {
                 numeroActual = c + numeroActual;
             }

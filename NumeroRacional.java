@@ -1,5 +1,3 @@
-import java.time.format.SignStyle;
-
 public class NumeroRacional implements Racional{
 
     
@@ -29,7 +27,7 @@ public class NumeroRacional implements Racional{
         return this.numerador + "/" + denominador;
     }
 
-    //multiplica el numerador por -1 para invertir la fraccion
+    //multiplica el numerador por -1 para cambiarle el signo a la fraccion
     @Override
     public void neg(){
         this.numerador = this.numerador * -1;
@@ -40,7 +38,7 @@ public class NumeroRacional implements Racional{
     //casteamos r porque para usar metodos como "getNumerador()" necesitamos que sea de tipo NumeroRacional
     //la suma de fracciones requiere mismo denominador, entonces multiplicamos entre si para obtener la formula
     // a/b + c/d = a*d + b*c / b * d
-    //el if sirve para simplificar, aunque pienso hacer un metodo privado
+    //despues simplificamos con el metodo privado simplificar()
     //Al final actualiza el numerador y denominador
     @Override
     public void suma(Racional r){
@@ -103,14 +101,14 @@ public class NumeroRacional implements Racional{
         //de nuevo. Si no divide, pasamos al siguiente. Repetimos hasta que no entre mas.
         //podría hacerse buscando el divisor mas grande para hacer una sola division
         int divisor = 2;
-            while(divisor <= a && divisor <= b){
-                if(a % divisor == 0 && b % divisor == 0){
+        while(divisor <= a && divisor <= b){
+            if(a % divisor == 0 && b % divisor == 0){
                 a = a / divisor;
                 b = b / divisor;
-                } else {
-                    divisor = divisor + 1;
-                }
+            } else {
+                divisor = divisor + 1;
             }
+        }
 
         //devuelve el signo que tenia al inicio la fraccion
         if(esNegativo){
@@ -121,7 +119,7 @@ public class NumeroRacional implements Racional{
         this.denominador = b;
     }
 
-    //Setters 
+    //Getters
     
     public int getNumerador(){
         return numerador;

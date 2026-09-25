@@ -50,14 +50,14 @@ public class PilaDoblementeEnlazada<T> implements Pila<T> {
         else{
             T dato = this.fin.getItem();
 
-                if(this.inicio == this.fin){
-                    this.inicio = null;
-                    this.fin = null;
-                }
-                else {
-                    this.fin = this.fin.getPrev();
-                    this.fin.setNext(null);
-                }
+            if(this.inicio == this.fin){
+                this.inicio = null;
+                this.fin = null;
+            }
+            else {
+                this.fin = this.fin.getPrev();
+                this.fin.setNext(null);
+            }
             return dato;
         }
     }
